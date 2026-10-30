@@ -1,0 +1,17 @@
+{
+  "id": "aurora-glass",
+  "name": "Aurora Glass",
+  "author": "BernyC",
+  "version": "0.4.0",
+  "description": "Adaptive light and dark glass, independent palettes and integrated server cards.",
+  "category": "theme",
+  "update_url": "https://hub.pelican.dev/plugins/aether-ui/update.json",
+  "namespace": "AuroraGlass",
+  "class": "AuroraGlassPlugin",
+  "api_version": 1,
+  "panels": [
+    "app",
+    "admin",
+    "server"
+  ]
+}
