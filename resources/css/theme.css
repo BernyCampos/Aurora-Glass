@@ -1,4 +1,6 @@
-/* Aurora Glass 0.4.1 — static stylesheet. Customization tokens are supplied from validated plugin settings. */
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+/* Aurora Glass 0.4.2 — static stylesheet. Customization tokens are supplied from validated plugin settings. */
 /* Aurora Glass 0.3 — component styles, no behavioral overrides. */
 :root{--sidebar-width:var(--ag-sidebar);--ag-line:color-mix(in srgb,var(--ag-text) 9%,transparent);--ag-fill:color-mix(in srgb,var(--ag-surface) calc(var(--ag-opacity)*100%),transparent);--ag-control:color-mix(in srgb,var(--ag-surface) 44%,transparent);--ag-hover:color-mix(in srgb,var(--ag-accent) 12%,transparent);--ag-round:clamp(8px,calc(var(--ag-radius)*.5),16px)}
 body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
@@ -127,4 +129,3 @@ body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
  --ag-warning:var(--ag-light_warning);
 }
 :root.dark {color-scheme:dark}
-

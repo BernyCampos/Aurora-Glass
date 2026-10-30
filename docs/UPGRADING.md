@@ -1,6 +1,6 @@
-# Upgrading from Aurora Glass 0.4.0 to 0.4.1
+# Upgrading from Aurora Glass 0.4.0 to 0.4.2
 
-Aurora Glass 0.4.1 no longer uses the `aurora_glass_settings` database table. Settings now belong to Pelican's `.env` file and are read from `config/aurora-glass.php`. The old database table is **not** deleted by the update.
+Aurora Glass 0.4.2 no longer uses the `aurora_glass_settings` database table. Settings now belong to Pelican's `.env` file and are read from `config/aurora-glass.php`. The old database table is **not** deleted by the update.
 
 ## Before updating
 
@@ -13,7 +13,7 @@ SELECT settings FROM aurora_glass_settings WHERE id = 1;
 
 3. For each key in the JSON, put its corresponding key/value into the Pelican `.env` file, using uppercase `AURORA_GLASS_` followed by the field name. Example: `light_bg` becomes `AURORA_GLASS_LIGHT_BG`. Color values should be in double quotes, e.g. `AURORA_GLASS_LIGHT_BG="#eef1f7"`. Numeric settings can be written unquoted.
 4. Do not delete any preexisting `.env` keys. Avoid changing other panel settings.
-5. Install/update Aurora Glass 0.4.1. Check that the appearance settings page shows the same values. Save the form, then reload the panel.
+5. Install/update Aurora Glass 0.4.2. Check that the appearance settings page shows the same values. Save the form, then reload the panel.
 6. If a Laravel config cache was created manually, run `php artisan config:clear` in the Pelican panel directory. If the new stylesheet does not appear, check that Node.js 22+ and Yarn/Corepack are available and rebuild with `yarn install && yarn build`.
 
 ## Existing table

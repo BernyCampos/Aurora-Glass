@@ -62,7 +62,7 @@ On a Pelican test installation, check:
 5. Verify keyboard focus, disabled controls and narrow layouts.
 6. Disable the plugin and verify the native panel appearance returns.
 
-Version 0.4.1 has PHP syntax, configuration consistency and CSS structure checks. End-to-end installation and visual verification on a running Pelican panel are still required.
+Version 0.4.2 has PHP syntax, configuration consistency and CSS structure checks. End-to-end installation and visual verification on a running Pelican panel are still required.
 
 ## Runtime release
 

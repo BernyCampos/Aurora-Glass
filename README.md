@@ -1,6 +1,6 @@
 # Aurora Glass
 
-Pelican Panel appearance plugin. Version `0.4.1`.
+Pelican Panel appearance plugin. Version `0.4.2`.
 
 ## Requirements
 
@@ -13,13 +13,13 @@ The exact Pelican release is not pinned in `plugin.json`. Verify compatibility w
 
 ## Installation
 
-1. Import `Aurora-Glass-0.4.1.zip` from the panel's plugin administration.
+1. Import `Aurora-Glass-0.4.2.zip` from the panel's plugin administration.
 2. Complete installation and enable **Aurora Glass**.
 3. Open the plugin's settings, save the appearance configuration and reload the page.
 
 For manual deployment, place the runtime files in `plugins/aurora-glass/` and complete installation through Pelican. The directory name must match the manifest ID.
 
-The manifest category is `theme`. Aurora Glass overlays Pelican components using a standalone Vite stylesheet.
+The manifest category is `theme`. Aurora Glass overlays Pelican components using a Vite theme that imports Filament's full base stylesheet before applying custom styles.
 
 ## Configuration
 
@@ -38,16 +38,16 @@ See [configuration reference](docs/CONFIGURATION.md).
 ## Runtime
 
 - Loaded in the `app`, `admin` and `server` panels.
-- Registers the standalone stylesheet using `$panel->viteTheme()`; only validated CSS custom properties are injected at runtime.
+- Registers a theme using `$panel->viteTheme()` that imports Filament's base CSS first; only validated CSS custom properties are injected at runtime.
 - Stores validated settings with Pelican's `EnvironmentWriterTrait` in `.env`, via `config/aurora-glass.php`.
 - Adds no routes, commands, JavaScript or external requests. Vite compiles the included CSS during theme installation.
 - Does not change server power actions, permissions or console transport.
 
 ## Updating and removal
 
-If upgrading from v0.4.0, export any customized JSON settings first, before installing the new ZIP. See [upgrade guide](docs/UPGRADING.md). Install 0.4.1 using Pelican's plugin management screen, ensuring the panel can build its CSS assets.
+If upgrading from v0.4.0, export any customized JSON settings first, before installing the new ZIP. See [upgrade guide](docs/UPGRADING.md). Install 0.4.2 using Pelican's plugin management screen, ensuring the panel can build its CSS assets.
 
-Disabling the plugin stops the theme from loading and retains `AURORA_GLASS_*` settings in `.env`. Uninstalling 0.4.1 does not remove those keys. An old 0.4.0 settings table, if present, is not accessed or removed by 0.4.1.
+Disabling the plugin stops the theme from loading and retains `AURORA_GLASS_*` settings in `.env`. Uninstalling 0.4.2 does not remove those keys. An old 0.4.0 settings table, if present, is not accessed or removed by 0.4.2.
 
 ## Source layout
 

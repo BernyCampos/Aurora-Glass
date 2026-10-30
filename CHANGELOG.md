@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.2 — Filament layout regression fix
+
+- Restored the Filament base stylesheet import in `resources/css/theme.css`; `viteTheme()` replaces the active theme, so without the import the interface loses its layout, sizes, spacing and component styles.
+- Preserved all 25 `.env`-backed settings, light/dark palettes, and theme presets.
+- Updated documentation for the corrected installable package.
+- No database migrations or schema changes.
+
+
 ## 0.4.1 — Marketplace review fixes
 
 - Removed the database migration and all database read/write operations used for theme settings.

@@ -52,7 +52,7 @@ All 25 keys are optional until the settings form is saved. Keys missing from `.e
 
 ### Upgrading from the database-backed 0.4.0 release
 
-Older versions stored JSON in the `aurora_glass_settings` table. **Back up that table and export your old settings before upgrading** if you changed the defaults. 0.4.1 no longer reads or writes this table, and does not drop it. See [UPGRADING.md](UPGRADING.md) for migration instructions.
+Older versions stored JSON in the `aurora_glass_settings` table. **Back up that table and export your old settings before upgrading** if you changed the defaults. 0.4.2 no longer reads or writes this table, and does not drop it. See [UPGRADING.md](UPGRADING.md) for migration instructions.
 
 ## Mode selection
 
