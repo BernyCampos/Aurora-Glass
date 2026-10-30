@@ -2,7 +2,7 @@
   "id": "aurora-glass",
   "name": "Aurora Glass",
   "author": "BernyC",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Adaptive light and dark glass, independent palettes and integrated server cards.",
   "category": "theme",
   "update_url": "https://hub.pelican.dev/plugins/aurora-glass/update.json",

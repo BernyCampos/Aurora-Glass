@@ -1,0 +1,130 @@
+/* Aurora Glass 0.4.1 — static stylesheet. Customization tokens are supplied from validated plugin settings. */
+/* Aurora Glass 0.3 — component styles, no behavioral overrides. */
+:root{--sidebar-width:var(--ag-sidebar);--ag-line:color-mix(in srgb,var(--ag-text) 9%,transparent);--ag-fill:color-mix(in srgb,var(--ag-surface) calc(var(--ag-opacity)*100%),transparent);--ag-control:color-mix(in srgb,var(--ag-surface) 44%,transparent);--ag-hover:color-mix(in srgb,var(--ag-accent) 12%,transparent);--ag-round:clamp(8px,calc(var(--ag-radius)*.5),16px)}
+body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
+ background:radial-gradient(ellipse at 85% 0%,color-mix(in srgb,var(--ag-accent) calc(var(--ag-glow)*100%),transparent),transparent 58%),radial-gradient(ellipse at 5% 95%,color-mix(in srgb,var(--ag-secondary) 14%,transparent),transparent 60%),var(--ag-bg) !important;
+ background-attachment:fixed !important;color:var(--ag-text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:var(--ag-font);min-height:100dvh;
+}
+/* Glass belongs only on contained surfaces. Tabs are a separate Filament component. */
+:is(.fi-sc-tabs.fi-contained,.fi-section:not(.fi-section-not-contained):not(.fi-aside),.fi-section.fi-aside > .fi-section-content-ctn,.fi-ta-ctn,.fi-simple-main,.fi-sidebar,.fi-topbar,.glass){
+ background:linear-gradient(135deg,color-mix(in srgb,var(--ag-text) 3%,transparent),transparent 50%),var(--ag-fill) !important;
+ border:0 !important;border-radius:var(--ag-radius) !important;
+ box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ag-text) calc(var(--ag-border)*100%),transparent),0 12px 40px #0000000d !important;
+ backdrop-filter:blur(var(--ag-blur)) saturate(135%);-webkit-backdrop-filter:blur(var(--ag-blur)) saturate(135%);
+}
+.fi-sc-tabs.fi-contained > .fi-tabs {background:transparent !important;border:0 !important;box-shadow:none !important;border-bottom:1px solid var(--ag-line) !important;border-radius:0 !important;padding:12px 16px !important}
+.fi-sc-tabs-tab,.fi-section-content,.fi-section-content-ctn {background:transparent}
+.fi-section-content-ctn,.fi-section-header,.fi-section-footer {border-color:var(--ag-line) !important}
+.fi-section.fi-section-not-contained {background:transparent !important;border:0 !important;box-shadow:none !important;backdrop-filter:none !important}
+.fi-topbar {margin:8px;width:auto}.fi-topbar nav{background:transparent !important;border:0 !important;box-shadow:none !important}
+.fi-sidebar{margin:8px;max-height:calc(100dvh - 16px);scrollbar-width:thin;scrollbar-color:var(--ag-line) transparent}
+:is(.fi-header-heading,.fi-section-header-heading,.fi-sidebar-item-label,.fi-ta-text,.fi-fo-field-wrp-label,.fi-fo-field-label,.fi-modal-heading){color:var(--ag-text) !important}
+:is(.fi-section-header-description,.fi-header-subheading,.fi-sidebar-group-label,.fi-fo-field-wrp-helper-text,.fi-fo-field-helper-text,.fi-modal-description){color:var(--ag-muted) !important}
+.fi-sidebar-item-btn{border-radius:var(--ag-round) !important;transition:background-color .16s ease}
+.fi-sidebar-item-btn:hover{background:var(--ag-hover) !important}
+.fi-sidebar-item-active .fi-sidebar-item-btn {background:var(--ag-hover) !important}
+.fi-sidebar-item-active .fi-sidebar-item-icon{color:var(--ag-accent) !important}
+/* Quiet tabs; the active state remains distinct without a boxed navigation strip. */
+.fi-tabs-item{border:0 !important;box-shadow:none !important;background:transparent !important;border-radius:var(--ag-round) !important;color:var(--ag-muted) !important;transition:background-color .16s ease,color .16s ease}
+.fi-tabs-item:hover{background:color-mix(in srgb,var(--ag-text) 4%,transparent) !important;color:var(--ag-text) !important}
+.fi-tabs-item:is(.fi-active,.fi-tabs-item-active,[aria-selected="true"]){background:var(--ag-hover) !important;color:var(--ag-accent) !important}
+.fi-tabs-item .fi-icon{color:inherit !important}
+/* Inputs use an inset wash. Validation rings are intentionally preserved. */
+.fi-input-wrp:not(.fi-invalid){background:var(--ag-control) !important;border:1px solid var(--ag-line) !important;border-radius:var(--ag-round) !important;box-shadow:inset 0 1px 4px #00000008 !important;transition:border-color .16s ease,background-color .16s ease}
+.fi-input-wrp:not(.fi-invalid):focus-within{border-color:color-mix(in srgb,var(--ag-accent) 60%,transparent) !important;background:color-mix(in srgb,var(--ag-accent) 5%,var(--ag-control)) !important}
+:is(.fi-input,.fi-select-input,.fi-textarea){color:var(--ag-text) !important;background:transparent !important}
+:is(.fi-input,.fi-textarea)::placeholder{color:var(--ag-muted);opacity:.65}
+.fi-select-input option{background:var(--ag-surface);color:var(--ag-text)}
+/* Action buttons float separately. No shared border or joined dividers. */
+.fi-btn-group{display:flex !important;flex-wrap:wrap;gap:8px !important;background:transparent !important;border:0 !important;box-shadow:none !important;padding:0 !important;max-width:100%}
+.fi-btn,.fi-btn-group > .fi-btn{border:0 !important;box-shadow:none !important;margin:0 !important;border-radius:var(--ag-round) !important;background:var(--ag-control) !important;color:var(--ag-text) !important;font-weight:500;transition:background-color .16s ease,color .16s ease}
+.fi-btn.fi-color-primary{background:color-mix(in srgb,var(--ag-accent) 13%,transparent) !important;color:var(--ag-accent) !important}
+.fi-btn.fi-color-danger{background:color-mix(in srgb,var(--ag-danger) 12%,transparent) !important;color:var(--ag-danger) !important}
+.fi-btn.fi-color-success{background:color-mix(in srgb,var(--ag-success) 12%,transparent) !important;color:var(--ag-success) !important}
+.fi-btn.fi-color-warning{background:color-mix(in srgb,var(--ag-warning) 12%,transparent) !important;color:var(--ag-warning) !important}
+.fi-btn:not(:disabled):not([aria-disabled="true"]):not(.fi-disabled):hover{background:color-mix(in srgb,var(--ag-text) 8%,transparent) !important}
+.fi-btn.fi-color-primary:not(:disabled):not([aria-disabled="true"]):hover{background:color-mix(in srgb,var(--ag-accent) 21%,transparent) !important}
+.fi-btn.fi-color-danger:not(:disabled):not([aria-disabled="true"]):hover{background:color-mix(in srgb,var(--ag-danger) 21%,transparent) !important}
+.fi-btn:is(:disabled,[aria-disabled="true"],.fi-disabled){opacity:.4 !important}
+.fi-header-actions .fi-btn{min-height:36px;padding:8px 14px !important;font-size:13px !important}
+.fi-btn > .fi-icon{color:inherit !important}
+/* Toggle options need neutral idle values and a single clear selection. */
+.fi-fo-toggle-buttons .fi-btn{background:color-mix(in srgb,var(--ag-text) 3%,transparent) !important;color:var(--ag-muted) !important;box-shadow:none !important;border-radius:var(--ag-round) !important}
+.fi-fo-toggle-buttons .fi-btn:hover{background:color-mix(in srgb,var(--ag-text) 7%,transparent) !important;color:var(--ag-text) !important}
+.fi-fo-toggle-buttons input:checked + .fi-btn,.fi-fo-toggle-buttons .fi-btn[aria-pressed="true"]{background:color-mix(in srgb,var(--ag-accent) 17%,transparent) !important;color:var(--ag-accent) !important;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ag-accent) 20%,transparent) !important}
+.fi-fo-toggle-buttons input:focus-visible + .fi-btn{outline:2px solid var(--ag-accent) !important;outline-offset:3px}
+/* Native switches preserve their enabled/disabled symbols and semantics. */
+.fi-fo-toggle[aria-checked="true"]{background:var(--ag-accent) !important}
+/* Menus and dialogs need a denser surface for text legibility above the page. */
+:is(.fi-dropdown-panel,.fi-modal-window,.fi-fo-select-options,.fi-global-search-results-ctn){background:color-mix(in srgb,var(--ag-surface) 94%,transparent) !important;color:var(--ag-text);border:1px solid var(--ag-line) !important;border-radius:var(--ag-radius) !important;box-shadow:0 24px 80px #00000040 !important;backdrop-filter:blur(var(--ag-blur))}
+.fi-dropdown-list-item:hover{background:var(--ag-hover) !important}
+:is(.fi-ta-header,.fi-ta-content,.fi-ta-row,.fi-ta-header-ctn,.fi-ta-selection-indicator){background:transparent !important;border-color:var(--ag-line) !important}
+.fi-ta-row:hover{background:color-mix(in srgb,var(--ag-accent) 4%,transparent) !important}
+.fi-ta-row:has(input:checked){background:var(--ag-hover) !important}
+.fi-ta-cell,.fi-ta-header-cell {border-color:var(--ag-line) !important}
+/* Keep each server info card, never the outer stats frame. */
+.fi-wi-stats-overview .fi-section:has(.fi-small-stat-block),.fi-wi-stats-overview .fi-section:has(.fi-small-stat-block) > .fi-section-content-ctn{background:transparent !important;border:0 !important;box-shadow:none !important;backdrop-filter:none !important}
+.fi-wi-stats-overview .fi-section:has(.fi-small-stat-block) > .fi-section-content-ctn > .fi-section-content{padding:0 !important}
+.fi-small-stat-block{background:var(--ag-fill) !important;color:var(--ag-text) !important;border:0 !important;box-shadow:inset 0 1px 0 var(--ag-line) !important;border-radius:var(--ag-round) !important}
+.fi-small-stat-block span span:first-child{color:var(--ag-muted) !important}
+:is(.fi-btn,.fi-tabs-item,.fi-icon-btn,.fi-sidebar-item-btn):focus-visible{outline:2px solid var(--ag-accent) !important;outline-offset:3px}
+@supports not (backdrop-filter:blur(1px)){:is(.fi-sc-tabs.fi-contained,.fi-section:not(.fi-section-not-contained),.fi-sidebar,.fi-topbar,.fi-modal-window,.fi-dropdown-panel,.fi-ta-ctn,.glass){background:var(--ag-surface) !important}}
+@media(prefers-reduced-transparency:reduce){:root{--ag-fill:var(--ag-surface)}:is(.fi-sc-tabs.fi-contained,.fi-section:not(.fi-section-not-contained),.fi-sidebar,.fi-topbar,.fi-modal-window,.fi-dropdown-panel,.glass){background:var(--ag-surface) !important;backdrop-filter:none !important}}
+@media(prefers-reduced-motion:reduce){:is(.fi-btn,.fi-tabs-item,.fi-sidebar-item-btn,.fi-input-wrp){transition:none !important}}
+@media(max-width:700px){.fi-topbar{margin:4px}.fi-sidebar{margin:0}.fi-sc-tabs.fi-contained > .fi-tabs{padding:8px !important}.fi-btn-group{gap:6px !important}}
+
+/* Overlay menus must never reveal the navigation underneath. */
+.fi-dropdown-panel {
+ background:var(--ag-surface) !important;isolation:isolate;z-index:60;
+ backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+}
+.fi-tenant-menu .fi-dropdown-panel {
+ max-height:min(65dvh,36rem) !important;overflow-y:auto !important;
+ overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--ag-line) transparent;
+}
+.fi-dropdown-panel .fi-dropdown-list-item-label {color:var(--ag-text) !important}
+.fi-tenant-menu .fi-dropdown-panel .fi-input[type="search"] {
+ box-sizing:border-box;background:var(--ag-control) !important;
+ border:1px solid var(--ag-line) !important;border-radius:var(--ag-round) !important;
+ padding:10px 12px;margin-block:4px 10px;box-shadow:none !important;
+}
+.fi-tenant-menu .fi-dropdown-panel .fi-input[type="search"]:focus-visible {
+ outline:2px solid var(--ag-accent) !important;outline-offset:-2px;
+}
+
+/* 0.3.1: Pelican server-entry has its own opaque utility background. */
+.fi-ta [wire\:poll\.15s].relative.cursor-pointer > .dark\:bg-gray-800,
+.fi-ta [wire\:poll\.15s].relative.cursor-pointer .end-0 > .dark\:bg-gray-800 {
+ background:transparent !important;box-shadow:none !important;
+}
+.fi-ta-record:has([wire\:poll\.15s].relative.cursor-pointer) {
+ background:var(--ag-fill) !important;border:0 !important;
+ border-radius:var(--ag-radius) !important;
+ box-shadow:inset 0 1px 0 var(--ag-line) !important;
+ transition:background-color .16s ease;
+}
+.fi-ta-record:has([wire\:poll\.15s].relative.cursor-pointer):hover {
+ background:color-mix(in srgb,var(--ag-accent) 5%,var(--ag-fill)) !important;
+}
+/* Resource-list tabs sit outside schema tabs and need their own surface. */
+.fi-tabs:not(.fi-sc-tabs > .fi-tabs) {
+ background:var(--ag-control) !important;border:0 !important;
+ box-shadow:inset 0 1px 0 var(--ag-line) !important;border-radius:var(--ag-round) !important;
+}
+@media(prefers-reduced-motion:reduce){.fi-ta-record{transition:none !important}}
+
+/* Follow Pelican native mode; separate light values preserve the dark palette. */
+:root:not(.dark) {
+ color-scheme:light;
+ --ag-bg:var(--ag-light_bg);
+ --ag-surface:var(--ag-light_surface);
+ --ag-accent:var(--ag-light_accent);
+ --ag-secondary:var(--ag-light_secondary);
+ --ag-text:var(--ag-light_text);
+ --ag-muted:var(--ag-light_muted);
+ --ag-danger:var(--ag-light_danger);
+ --ag-success:var(--ag-light_success);
+ --ag-warning:var(--ag-light_warning);
+}
+:root.dark {color-scheme:dark}
+

@@ -34,16 +34,25 @@ Components with fixed native typography can retain their own font sizes. Dropdow
 
 ## Storage and validation
 
-Table: `aurora_glass_settings`.
+Settings are persisted using Pelican's official `EnvironmentWriterTrait` in the panel's `.env` file, **not** in a database table. Values are available to the plugin through `config/aurora-glass.php` (loaded by Pelican with the plugin ID `aurora-glass`).
 
-| Column | Type | Role |
-| --- | --- | --- |
-| `id` | Unsigned tiny integer, primary key | Single settings row, value `1` |
-| `settings` | Text | JSON object containing the validated configuration |
+Each key uses the `AURORA_GLASS_` prefix. For example:
 
-Unknown keys are discarded on read. Missing keys use defaults. Invalid stored settings cause the complete default configuration to be used. If the table is absent, the theme renders with defaults; saving displays an initialization error.
+```dotenv
+AURORA_GLASS_BG="#101216"
+AURORA_GLASS_ACCENT="#a69afa"
+AURORA_GLASS_LIGHT_ACCENT="#6251bd"
+AURORA_GLASS_BLUR=24
+AURORA_GLASS_OPACITY=0.72
+```
 
-`preset` is a form control and is not persisted. Settings are stored globally, not per user.
+All 25 keys are optional until the settings form is saved. Keys missing from `.env` fall back to defaults. Invalid configured values cause a fallback to the default palette and layout; the form validates ranges and hexadecimal colors before writing. Configuration is global, not per user. `preset` only changes form values and is not persisted.
+
+`writeToEnvironment()` clears the framework config cache after saving; reload the page to see the updated theme. If you have previously built a config cache manually, run `php artisan config:clear` before opening settings.
+
+### Upgrading from the database-backed 0.4.0 release
+
+Older versions stored JSON in the `aurora_glass_settings` table. **Back up that table and export your old settings before upgrading** if you changed the defaults. 0.4.1 no longer reads or writes this table, and does not drop it. See [UPGRADING.md](UPGRADING.md) for migration instructions.
 
 ## Mode selection
 

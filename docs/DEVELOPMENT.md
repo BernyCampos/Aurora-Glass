@@ -9,13 +9,13 @@ The class implements:
 - `Filament\Contracts\Plugin`.
 - `App\Contracts\Plugins\HasPluginSettings`.
 
-`register()` adds a `panels::head.end` callback. The callback concatenates the static `AURORA_CSS` nowdoc and validated settings variables into `<style id="aurora-glass">`.
+`register()` registers a standalone Vite stylesheet at `plugins/aurora-glass/resources/css/theme.css` and uses a small `panels::head.end` hook only for validated, dynamically generated CSS variables. The static component styles are not embedded in PHP.
 
-`getSettingsFormData()`, `getSettingsForm()` and `saveSettings()` provide the native administrative settings integration. Writes use Laravel's query builder. The plugin uses no direct filesystem or process functions.
+`getSettingsFormData()`, `getSettingsForm()` and `saveSettings()` provide the native administrative settings integration. Settings are written with Pelican's `EnvironmentWriterTrait` to `.env` and loaded through the plugin's `config/aurora-glass.php`. There are no plugin tables or migrations.
 
 ## Editing styles
 
-Edit the `AURORA_CSS` block in `src/AuroraGlassPlugin.php`. Palette defaults and configuration limits are defined separately in `DEFAULTS`, `LABELS` and `RANGES`.
+Edit `resources/css/theme.css`. Palette defaults and configuration limits are defined in `DEFAULTS`, `LABELS` and `RANGES` in `src/AuroraGlassPlugin.php`. Keep `config/aurora-glass.php` defaults in sync with `DEFAULTS`.
 
 When adding a setting:
 
@@ -26,7 +26,7 @@ When adding a setting:
 
 Runtime values are emitted as `--ag-<key>` variables. Light keys retain their underscore, for example `--ag-light_bg`. Light-mode selectors map those values to the active variables. Primary Filament shades are derived from the active accent.
 
-Do not insert unvalidated user content into the CSS block.
+Do not place unvalidated values in the dynamic CSS variable output.
 
 ## Component scope
 
@@ -36,11 +36,13 @@ The server grid fix also targets Pelican's `server-entry` structure: a `wire:pol
 
 Tenant dropdowns remain opaque and scroll internally. The plugin does not replace Livewire components or their event handlers.
 
-## Migration
+## Data storage and upgrade
 
-The migration creates only `aurora_glass_settings`. Installation is idempotent when the table already exists. The down migration drops that table.
+No database migrations are shipped. New settings are saved into `.env` with plugin-prefixed keys. Existing 0.4.0 installations should export any customized settings before upgrading; the old table is left untouched. See [UPGRADING.md](UPGRADING.md).
 
-No new migration is required for additional JSON settings keys; missing keys are merged from defaults.
+## Build
+
+`$panel->viteTheme(...)` uses Pelican's Vite pipeline. The panel automatically includes `plugins/*/resources/css/**/*.css` as Vite inputs. Installing this **theme** rebuilds frontend assets; Node.js 22+ and Yarn/Corepack must be installed on the panel host. Use `yarn install && yarn build` in the Pelican panel root if assets need to be rebuilt manually.
 
 ## Validation
 
@@ -48,7 +50,7 @@ Syntax checks, from the repository root:
 
 ```sh
 php -l src/AuroraGlassPlugin.php
-php -l database/migrations/2026_10_29_000001_create_aurora_glass_settings_table.php
+php -l config/aurora-glass.php
 ```
 
 On a Pelican test installation, check:
@@ -60,25 +62,25 @@ On a Pelican test installation, check:
 5. Verify keyboard focus, disabled controls and narrow layouts.
 6. Disable the plugin and verify the native panel appearance returns.
 
-Version 0.4.0 received static PHP/CSS parsing and browser checks against local component fixtures. User-supplied screenshots show the plugin enabled in an installed panel. Automated full-panel integration tests are not included.
+Version 0.4.1 has PHP syntax, configuration consistency and CSS structure checks. End-to-end installation and visual verification on a running Pelican panel are still required.
 
 ## Runtime release
 
-Create a ZIP containing only the manifest, PHP entry point and migration:
+Create a ZIP containing a single root directory named `aurora-glass`, containing the manifest, PHP entry point, configuration and static stylesheet:
 
-```sh
-zip -r ../Aurora-Glass-0.4.0.zip plugin.json src database
+```text
+aurora-glass/
+  plugin.json
+  src/AuroraGlassPlugin.php
+  config/aurora-glass.php
+  resources/css/theme.css
 ```
 
-Pelican accepts the manifest at the archive root or one directory below it. If using a containing directory, name it `aurora-glass`.
-
-Exclude documentation, screenshots, development dependencies, local fixtures and environment files from the runtime ZIP. Do not import the GitHub source archive as the release package.
-
-The PHP source is deployable as supplied; npm, Composer installation and CSS compilation are not required for this plugin.
+The runtime ZIP does not need the documentation or screenshots. Vite compiles CSS as part of installing a `theme` plugin; unlike the old inline CSS release, this version requires Node.js 22+ and Yarn/Corepack on the panel host.
 
 ## Integration constraints
 
-- The panel content security policy must allow the injected style block. A stricter CSP requires an adapted asset-loading strategy.
+- The panel content security policy must permit the small inline **variable-only** style block. Static theme rules use a Vite-generated CSS asset.
 - Native and third-party component markup can change across Pelican or Filament releases.
 - Modern CSS support is required; the blur fallback does not replace support for `color-mix()` or `:has()`.
 - Reduced-motion and reduced-transparency preferences are handled where supported by the browser.
