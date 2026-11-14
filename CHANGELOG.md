@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0 — Native Pelican theme switcher
+
+- Implements Pelican's official `App\Contracts\Plugins\HasTheme` interface, introduced in Panel v1.0.0-rc.3.
+- Loads Aurora's Vite stylesheet, color palette and dynamic CSS variables only when Aurora Glass is selected.
+- Removes the old `viteTheme()` call and avoids re-importing Filament's foundational stylesheet.
+- Adds active-theme CSS scoping to prevent styles from affecting other selected themes.
+- Preserves all 25 environment-backed visual settings, light/dark palettes and four presets without migrations or core changes.
+- Adds standalone theme-selector checks, deterministic install/source ZIPs, SHA-256 checksums and automated GitHub Releases.
+- Requires Pelican Panel v1.0.0-rc.3; Aurora Glass v0.4.2 remains available for older installations.
+
 ## 0.4.2 — Filament layout regression fix
 
 - Restored the Filament base stylesheet import in `resources/css/theme.css`; `viteTheme()` replaces the active theme, so without the import the interface loses its layout, sizes, spacing and component styles.
