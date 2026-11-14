@@ -8,8 +8,9 @@ The class implements:
 
 - `Filament\Contracts\Plugin`.
 - `App\Contracts\Plugins\HasPluginSettings`.
+- `App\Contracts\Plugins\HasTheme` (Pelican v1.0.0-rc.3).
 
-`register()` registers a standalone Vite stylesheet at `plugins/aurora-glass/resources/css/theme.css` and uses a small `panels::head.end` hook only for validated, dynamically generated CSS variables. The static component styles are not embedded in PHP.
+`register()` intentionally does not modify the shared panel. `getThemeViteEntry()` supplies `plugins/aurora-glass/resources/css/theme.css` to Pelican's native ThemeService, and `getThemeColors()` registers validated colors. `getThemeRenderHooks()` emits the active-theme marker and dynamic CSS variables only while Aurora is selected. `getThemeFont()` returns null so Filament keeps its native font.
 
 `getSettingsFormData()`, `getSettingsForm()` and `saveSettings()` provide the native administrative settings integration. Settings are written with Pelican's `EnvironmentWriterTrait` to `.env` and loaded through the plugin's `config/aurora-glass.php`. There are no plugin tables or migrations.
 
@@ -24,13 +25,13 @@ When adding a setting:
 3. Add a static CSS fallback when required.
 4. Update the settings form grouping and configuration reference.
 
-Runtime values are emitted as `--ag-<key>` variables. Light keys retain their underscore, for example `--ag-light_bg`. Light-mode selectors map those values to the active variables. Primary Filament shades are derived from the active accent.
+Runtime values are emitted as `--ag-<key>` variables scoped to the Aurora active-theme marker. Light keys retain their underscore, for example `--ag-light_bg`. Light-mode selectors map those values to active variables. Primary Filament shades are derived from the accent, while the native HasTheme colors register accessible Filament states.
 
 Do not place unvalidated values in the dynamic CSS variable output.
 
 ## Component scope
 
-The stylesheet targets Filament hook classes for sections, tabs, inputs, buttons, tables, dialogs, dropdowns and server stats.
+The stylesheet targets Filament hook classes for sections, tabs, inputs, buttons, tables, dialogs, dropdowns and server stats. Its `@scope` root is `html:has(meta[name="aurora-glass-active"])`, so even a retained link is inactive after navigating away from Aurora. Filament's base stylesheet must **not** be re-imported: the new contract adds Aurora CSS after native Filament styles.
 
 The server grid fix also targets Pelican's `server-entry` structure: a `wire:poll.15s` element with `relative cursor-pointer` classes and its `dark:bg-gray-800` surface. Recheck these selectors after upstream component changes.
 
@@ -42,7 +43,7 @@ No database migrations are shipped. New settings are saved into `.env` with plug
 
 ## Build
 
-`$panel->viteTheme(...)` uses Pelican's Vite pipeline. The panel automatically includes `plugins/*/resources/css/**/*.css` as Vite inputs. Installing this **theme** rebuilds frontend assets; Node.js 22+ and Yarn/Corepack must be installed on the panel host. Use `yarn install && yarn build` in the Pelican panel root if assets need to be rebuilt manually.
+`getThemeViteEntry()` uses Pelican's native ThemeService and Vite pipeline. The panel automatically includes `plugins/*/resources/css/**/*.css` as Vite inputs. Installing this **theme** rebuilds frontend assets; Node.js 22+ and Yarn/Corepack must be installed on the panel host. Use `yarn install && yarn build` in the Pelican panel root if assets need to be rebuilt manually.
 
 ## Validation
 
@@ -62,11 +63,11 @@ On a Pelican test installation, check:
 5. Verify keyboard focus, disabled controls and narrow layouts.
 6. Disable the plugin and verify the native panel appearance returns.
 
-Version 0.4.2 has PHP syntax, configuration consistency and CSS structure checks. End-to-end installation and visual verification on a running Pelican panel are still required.
+Version 0.5.0 has PHP 8.4/8.5 syntax, native theme contract, CSS scoping, manifest, archive integrity and configuration checks in GitHub Actions. End-to-end rc.3 installation, switching, forced/default theme and visual verification on a running Pelican panel are still required.
 
 ## Runtime release
 
-Create a ZIP containing a single root directory named `aurora-glass`, containing the manifest, PHP entry point, configuration and static stylesheet:
+Run `python tools/package.py --repository BernyCampos/Aurora-Glass` to create install/source ZIPs, SHA256SUMS.txt and update.json. The installable ZIP has one root directory named `aurora-glass`, containing the manifest, PHP entry point, configuration and static stylesheet:
 
 ```text
 aurora-glass/
@@ -76,7 +77,7 @@ aurora-glass/
   resources/css/theme.css
 ```
 
-The runtime ZIP does not need the documentation or screenshots. Vite compiles CSS as part of installing a `theme` plugin; unlike the old inline CSS release, this version requires Node.js 22+ and Yarn/Corepack on the panel host.
+The runtime ZIP includes the minimal plugin files, README, changelog and license. Vite compiles CSS as part of installing a `theme` plugin; Node.js 22+ and Yarn/Corepack remain required on the panel host.
 
 ## Integration constraints
 

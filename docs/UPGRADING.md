@@ -23,3 +23,11 @@ The old `aurora_glass_settings` table may remain as unused data. Keep it as a fa
 ## New installations
 
 No migration or manual `.env` editing is required. Install the theme, open plugin settings, select a preset or fine-tune values and save.
+
+## Upgrading to 0.5.0 — Pelican theme picker
+
+Aurora Glass v0.5.0 requires **Pelican Panel v1.0.0-rc.3** and its official `HasTheme` interface. On rc.2, keep Aurora Glass v0.4.2. The plugin keeps the same ID (`aurora-glass`) and all 25 `.env`-backed settings.
+
+For rc.3, update using Pelican's normal plugin import/update workflow, select Aurora Glass in the native theme picker, then verify the dark and light palettes, settings persistence and native server pages. Other switchable themes can remain enabled. The dynamic CSS and stylesheet are active only while Aurora is selected. No migrations, core patches or permission changes are included.
+
+The old release's Filament CSS import is intentionally removed because the native selector adds theme CSS to Filament's existing styles rather than replacing them.

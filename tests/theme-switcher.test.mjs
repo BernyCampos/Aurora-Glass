@@ -36,7 +36,7 @@ test('native Filament styles are not re-imported and Aurora CSS is active-only',
     assert.match(css, /@scope\s*\(html:has\(meta\[name="aurora-glass-active"\]\)\)\s*\{/);
     assert.ok(css.trimEnd().endsWith('}'));
     assert.match(plugin, /<meta name="aurora-glass-active" content="0\.5\.0">/);
-    assert.match(plugin, /html:has\(meta\[name=\\"aurora-glass-active\\"\]\)/);
+    assert.ok(plugin.includes('html:has(meta[name="aurora-glass-active"])'));
     assert.match(plugin, /id="aurora-glass-variables"/);
     assert.doesNotMatch(css, /\burl\(https?:\/\//);
 });
