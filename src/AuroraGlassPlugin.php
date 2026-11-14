@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace AuroraGlass;
 
 use App\Contracts\Plugins\HasPluginSettings;
+use App\Contracts\Plugins\HasTheme;
 use App\Traits\EnvironmentWriterTrait;
 use Filament\Contracts\Plugin;
+use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
@@ -17,7 +20,7 @@ use Filament\Panel;
 use Illuminate\Support\HtmlString;
 use Throwable;
 
-final class AuroraGlassPlugin implements Plugin, HasPluginSettings
+final class AuroraGlassPlugin implements Plugin, HasPluginSettings, HasTheme
 {
     use EnvironmentWriterTrait;
 
@@ -25,10 +28,42 @@ final class AuroraGlassPlugin implements Plugin, HasPluginSettings
 
     public function register(Panel $panel): void
     {
-        $panel->viteTheme('plugins/aurora-glass/resources/css/theme.css');
-        $panel->renderHook('panels::head.end', static fn (): HtmlString => new HtmlString(
-            '<style id="aurora-glass-variables">' . self::cssVariables(self::settings()) . '</style>'
-        ));
+        // Pelican's ThemeService activates HasTheme assets and hooks only
+        // while Aurora Glass is selected. Do not override Filament globally.
+    }
+
+    public function getThemeViteEntry(): string|array|null
+    {
+        return 'plugins/aurora-glass/resources/css/theme.css';
+    }
+
+    public function getThemeColors(): array
+    {
+        $settings = self::settings();
+
+        return [
+            'primary' => Color::hex($settings['accent']),
+            'success' => Color::hex($settings['success']),
+            'warning' => Color::hex($settings['warning']),
+            'danger' => Color::hex($settings['danger']),
+            'info' => Color::hex($settings['secondary']),
+        ];
+    }
+
+    public function getThemeFont(): ?string
+    {
+        // Aurora uses its configurable local CSS font size, not Bunny fonts.
+        return null;
+    }
+
+    public function getThemeRenderHooks(): array
+    {
+        return [
+            PanelsRenderHook::HEAD_END => static fn (): HtmlString => new HtmlString(
+                '<meta name="aurora-glass-active" content="0.5.0">'
+                . '<style id="aurora-glass-variables">' . self::cssVariables(self::settings()) . '</style>'
+            ),
+        ];
     }
 
     private const DEFAULTS = [
@@ -91,7 +126,7 @@ final class AuroraGlassPlugin implements Plugin, HasPluginSettings
 
     private static function cssVariables(array $values): string
     {
-        $css = ':root {';
+        $css = 'html:has(meta[name="aurora-glass-active"]) {';
         foreach (self::DEFAULTS as $key => $default) {
             $unit = in_array($key, ['blur', 'radius', 'sidebar', 'font'], true) ? 'px' : '';
             $value = isset(self::RANGES[$key]) ? (float) $values[$key] : $values[$key];
