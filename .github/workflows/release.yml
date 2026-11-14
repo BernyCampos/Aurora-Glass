@@ -32,6 +32,8 @@ jobs:
           php -l config/aurora-glass.php
       - name: Test theme selector contract and style isolation
         run: node --test tests/theme-switcher.test.mjs
+      - name: Verify Aurora CSS with headless Chromium
+        run: node --test tests/browser-css.test.mjs
       - name: Package and validate archives
         run: |
           python tools/package.py --repository BernyCampos/Aurora-Glass
