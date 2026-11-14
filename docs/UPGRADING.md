@@ -31,3 +31,7 @@ Aurora Glass v0.5.0 requires **Pelican Panel v1.0.0-rc.3** and its official `Has
 For rc.3, update using Pelican's normal plugin import/update workflow, select Aurora Glass in the native theme picker, then verify the dark and light palettes, settings persistence and native server pages. Other switchable themes can remain enabled. The dynamic CSS and stylesheet are active only while Aurora is selected. No migrations, core patches or permission changes are included.
 
 The old release's Filament CSS import is intentionally removed because the native selector adds theme CSS to Filament's existing styles rather than replacing them.
+
+## v0.5.1 glass styling regression fix
+
+On Pelican rc.3, Aurora Glass v0.5.0 can appear partially unstyled because scoped design variables did not match the scope root. v0.5.1 restores them without modifying your `AURORA_GLASS_*` settings or Pelican core. Upgrade with the native plugin manager, select Aurora and refresh the browser to use the rebuilt theme assets. Keep v0.4.2 for rc.2.

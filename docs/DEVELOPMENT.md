@@ -31,6 +31,8 @@ Do not place unvalidated values in the dynamic CSS variable output.
 
 ## Component scope
 
+Inside Aurora's scoped CSS, root-level design variables and light/dark overrides must target `:scope` rather than `:root`. The latter does not match the CSS scoping root implicitly, breaking glass surfaces. This is covered by v0.5.1 regression tests.
+
 The stylesheet targets Filament hook classes for sections, tabs, inputs, buttons, tables, dialogs, dropdowns and server stats. Its `@scope` root is `html:has(meta[name="aurora-glass-active"])`, so even a retained link is inactive after navigating away from Aurora. Filament's base stylesheet must **not** be re-imported: the new contract adds Aurora CSS after native Filament styles.
 
 The server grid fix also targets Pelican's `server-entry` structure: a `wire:poll.15s` element with `relative cursor-pointer` classes and its `dark:bg-gray-800` surface. Recheck these selectors after upstream component changes.

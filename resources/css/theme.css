@@ -1,13 +1,14 @@
-/* Aurora Glass v0.5.0: additive native theme entry.
+/* Aurora Glass v0.5.1: scoped root variable regression fix.
  * Filament's foundational CSS is supplied by Pelican and must not be re-imported.
  * @scope keeps Aurora overrides inactive if Livewire retains a prior Vite link.
  * The matching meta marker is emitted only by Aurora's active HasTheme render hook.
  */
 @scope (html:has(meta[name="aurora-glass-active"])) {
 
+/* The scope root is html: define CSS variables with :scope, not with an unscoped root selector. */
 /* Configurable static styling; validated CSS tokens come from the active theme hook. */
 /* Aurora Glass 0.3 — component styles, no behavioral overrides. */
-:root{--sidebar-width:var(--ag-sidebar);--ag-line:color-mix(in srgb,var(--ag-text) 9%,transparent);--ag-fill:color-mix(in srgb,var(--ag-surface) calc(var(--ag-opacity)*100%),transparent);--ag-control:color-mix(in srgb,var(--ag-surface) 44%,transparent);--ag-hover:color-mix(in srgb,var(--ag-accent) 12%,transparent);--ag-round:clamp(8px,calc(var(--ag-radius)*.5),16px)}
+:scope{--sidebar-width:var(--ag-sidebar);--ag-line:color-mix(in srgb,var(--ag-text) 9%,transparent);--ag-fill:color-mix(in srgb,var(--ag-surface) calc(var(--ag-opacity)*100%),transparent);--ag-control:color-mix(in srgb,var(--ag-surface) 44%,transparent);--ag-hover:color-mix(in srgb,var(--ag-accent) 12%,transparent);--ag-round:clamp(8px,calc(var(--ag-radius)*.5),16px)}
 body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
  background:radial-gradient(ellipse at 85% 0%,color-mix(in srgb,var(--ag-accent) calc(var(--ag-glow)*100%),transparent),transparent 58%),radial-gradient(ellipse at 5% 95%,color-mix(in srgb,var(--ag-secondary) 14%,transparent),transparent 60%),var(--ag-bg) !important;
  background-attachment:fixed !important;color:var(--ag-text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:var(--ag-font);min-height:100dvh;
@@ -76,7 +77,7 @@ body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
 .fi-small-stat-block span span:first-child{color:var(--ag-muted) !important}
 :is(.fi-btn,.fi-tabs-item,.fi-icon-btn,.fi-sidebar-item-btn):focus-visible{outline:2px solid var(--ag-accent) !important;outline-offset:3px}
 @supports not (backdrop-filter:blur(1px)){:is(.fi-sc-tabs.fi-contained,.fi-section:not(.fi-section-not-contained),.fi-sidebar,.fi-topbar,.fi-modal-window,.fi-dropdown-panel,.fi-ta-ctn,.glass){background:var(--ag-surface) !important}}
-@media(prefers-reduced-transparency:reduce){:root{--ag-fill:var(--ag-surface)}:is(.fi-sc-tabs.fi-contained,.fi-section:not(.fi-section-not-contained),.fi-sidebar,.fi-topbar,.fi-modal-window,.fi-dropdown-panel,.glass){background:var(--ag-surface) !important;backdrop-filter:none !important}}
+@media(prefers-reduced-transparency:reduce){:scope{--ag-fill:var(--ag-surface)}:is(.fi-sc-tabs.fi-contained,.fi-section:not(.fi-section-not-contained),.fi-sidebar,.fi-topbar,.fi-modal-window,.fi-dropdown-panel,.glass){background:var(--ag-surface) !important;backdrop-filter:none !important}}
 @media(prefers-reduced-motion:reduce){:is(.fi-btn,.fi-tabs-item,.fi-sidebar-item-btn,.fi-input-wrp){transition:none !important}}
 @media(max-width:700px){.fi-topbar{margin:4px}.fi-sidebar{margin:0}.fi-sc-tabs.fi-contained > .fi-tabs{padding:8px !important}.fi-btn-group{gap:6px !important}}
 
@@ -121,7 +122,7 @@ body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
 @media(prefers-reduced-motion:reduce){.fi-ta-record{transition:none !important}}
 
 /* Follow Pelican native mode; separate light values preserve the dark palette. */
-:root:not(.dark) {
+:scope:not(.dark) {
  color-scheme:light;
  --ag-bg:var(--ag-light_bg);
  --ag-surface:var(--ag-light_surface);
@@ -133,6 +134,6 @@ body:has(.fi-layout),body:has(.fi-simple-layout),body.ag-preview {
  --ag-success:var(--ag-light_success);
  --ag-warning:var(--ag-light_warning);
 }
-:root.dark {color-scheme:dark}
+:scope.dark {color-scheme:dark}
 
 }
