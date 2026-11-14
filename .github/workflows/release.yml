@@ -37,8 +37,8 @@ jobs:
           python tools/package.py --repository BernyCampos/Aurora-Glass
           cd build
           sha256sum --check SHA256SUMS.txt
-          unzip -t Aurora-Glass-0.5.0.zip
-          unzip -t Aurora-Glass-0.5.0-source.zip
+          unzip -t Aurora-Glass-0.5.1.zip
+          unzip -t Aurora-Glass-0.5.1-source.zip
       - name: Upload candidate packages
         uses: actions/upload-artifact@v4
         with:
@@ -68,16 +68,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          tag="v0.5.0"
+          tag="v0.5.1"
           if gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag already exists; leaving its artifacts unchanged."
             exit 0
           fi
           gh release create "$tag" \
-            build/Aurora-Glass-0.5.0.zip \
-            build/Aurora-Glass-0.5.0-source.zip \
+            build/Aurora-Glass-0.5.1.zip \
+            build/Aurora-Glass-0.5.1-source.zip \
             build/SHA256SUMS.txt \
             build/update.json \
             --target "$GITHUB_SHA" \
-            --title "Aurora Glass v0.5.0" \
+            --title "Aurora Glass v0.5.1" \
             --notes-file docs/RELEASE.md

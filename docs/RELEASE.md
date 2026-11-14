@@ -1,8 +1,12 @@
-# Aurora Glass v0.5.0 — Native Theme Switcher
+# Aurora Glass v0.5.1 — Glass surfaces restored
 
 Aurora Glass now supports Pelican Panel's built-in theme selector through the official `App\Contracts\Plugins\HasTheme` interface.
 
-## What's changed
+## Bug fixed in v0.5.1
+
+The v0.5.0 CSS isolation used root selectors that failed to match the scoping root inside `@scope`. This prevented glass design variables from reaching cards and other components. v0.5.1 uses `:scope` for root-level variables and light/dark overrides, restoring translucent cards, borders, corners and palette colors while keeping the native Pelican theme selector.
+
+## Features retained from v0.5.0
 
 - Aurora appears in the theme picker in the user menu and profile. Administrators can choose it as the default or forced theme.
 - Aurora CSS, Filament colors and dynamically configured variables are loaded only while Aurora is selected.
@@ -17,8 +21,8 @@ Aurora Glass now supports Pelican Panel's built-in theme selector through the of
 
 ## Download files
 
-- `Aurora-Glass-0.5.0.zip` — installable Pelican plugin (use this for the panel or Marketplace).
-- `Aurora-Glass-0.5.0-source.zip` — developer source with documentation, tests, and workflows.
+- `Aurora-Glass-0.5.1.zip` — installable Pelican plugin (use this for the panel or Marketplace).
+- `Aurora-Glass-0.5.1-source.zip` — developer source with documentation, tests, and workflows.
 - `SHA256SUMS.txt` — SHA-256 checksums for both ZIP files.
 - `update.json` — rc.3-specific update feed entry with package checksum.
 

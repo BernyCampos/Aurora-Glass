@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.1 — Restore scoped glass variables
+
+- Fix a v0.5.0 CSS regression: `:root` did not match the root of Aurora's `@scope`, so glass surfaces lost their CSS variables.
+- Restore glass cards, borders, rounded corners and correct light/dark palette mapping with `:scope` selectors.
+- Keep the native `HasTheme` selector, Filament base styles, existing 25 preferences and presets without changing Pelican core.
+- Add a regression test and publish corrected rc.3 installation ZIP.
+
 ## 0.5.0 — Native Pelican theme switcher
 
 - Implements Pelican's official `App\Contracts\Plugins\HasTheme` interface, introduced in Panel v1.0.0-rc.3.

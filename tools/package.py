@@ -38,7 +38,7 @@ def build(repository: str | None) -> None:
     assert plugin["id"] == "aurora-glass"
     assert plugin["category"] == "theme"
     assert plugin["api_version"] == 1
-    assert plugin["version"] == "0.5.0"
+    assert plugin["version"] == "0.5.1"
     assert plugin["panel_version"] == "1.0.0-rc.3"
     assert "meta" not in plugin
     assert (ROOT / "resources/css/theme.css").is_file()

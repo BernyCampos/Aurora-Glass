@@ -7,12 +7,12 @@ const plugin = read('src/AuroraGlassPlugin.php');
 const css = read('resources/css/theme.css');
 const manifest = JSON.parse(read('plugin.json'));
 
-test('Aurora 0.5.0 manifest targets Pelican native theme switcher', () => {
+test('Aurora 0.5.1 manifest targets Pelican native theme switcher', () => {
     assert.equal(manifest.id, 'aurora-glass');
     assert.equal(manifest.name, 'Aurora Glass');
     assert.equal(manifest.category, 'theme');
     assert.equal(manifest.api_version, 1);
-    assert.equal(manifest.version, '0.5.0');
+    assert.equal(manifest.version, '0.5.1');
     assert.equal(manifest.panel_version, '1.0.0-rc.3');
     assert.deepEqual(manifest.panels, ['app', 'admin', 'server']);
     assert.equal(Object.hasOwn(manifest, 'meta'), false);
@@ -35,7 +35,7 @@ test('native Filament styles are not re-imported and Aurora CSS is active-only',
     assert.doesNotMatch(css, /@import\b[^;]*filament/i);
     assert.match(css, /@scope\s*\(html:has\(meta\[name="aurora-glass-active"\]\)\)\s*\{/);
     assert.ok(css.trimEnd().endsWith('}'));
-    assert.match(plugin, /<meta name="aurora-glass-active" content="0\.5\.0">/);
+    assert.match(plugin, /<meta name="aurora-glass-active" content="0\.5\.1">/);
     assert.ok(plugin.includes('html:has(meta[name="aurora-glass-active"])'));
     assert.match(plugin, /id="aurora-glass-variables"/);
     assert.doesNotMatch(css, /\burl\(https?:\/\//);
@@ -49,7 +49,18 @@ test('legacy appearance settings and palettes persist unchanged', () => {
     ]) assert.ok(plugin.includes(token), "Missing " + token);
     assert.match(plugin, /writeToEnvironment\(\$environment\)/);
     assert.match(read('config/aurora-glass.php'), /AURORA_GLASS_LIGHT_ACCENT/);
-    assert.match(css, /:root:not\(\.dark\)/);
-    assert.match(css, /:root\.dark/);
+    assert.match(css, /:scope:not\(\.dark\)/);
+    assert.match(css, /:scope\.dark/);
     assert.doesNotMatch(plugin, /DB::|Schema::|Artisan::call|chmod\(|chown\(/);
+});
+
+
+test('root variables bind to the scoped html element and remain isolated', () => {
+    assert.match(css, /:scope\s*\{\s*--sidebar-width:/);
+    assert.match(css, /@media\(prefers-reduced-transparency:reduce\)\{:scope\{/);
+    assert.match(css, /:scope:not\(\.dark\)/);
+    assert.match(css, /:scope\.dark/);
+    assert.doesNotMatch(css, /:root(?:\b|:)/);
+    assert.match(css, /--ag-fill:color-mix/);
+    assert.match(css, /--ag-round:clamp/);
 });
