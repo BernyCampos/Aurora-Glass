@@ -60,7 +60,7 @@ final class AuroraGlassPlugin implements Plugin, HasPluginSettings, HasTheme
     {
         return [
             PanelsRenderHook::HEAD_END => static fn (): HtmlString => new HtmlString(
-                '<meta name="aurora-glass-active" content="0.5.1">'
+                '<meta name="aurora-glass-active" content="0.5.2">'
                 . '<style id="aurora-glass-variables">' . self::cssVariables(self::settings()) . '</style>'
             ),
         ];

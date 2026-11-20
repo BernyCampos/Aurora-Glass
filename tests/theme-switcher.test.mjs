@@ -7,13 +7,13 @@ const plugin = read('src/AuroraGlassPlugin.php');
 const css = read('resources/css/theme.css');
 const manifest = JSON.parse(read('plugin.json'));
 
-test('Aurora 0.5.1 manifest targets Pelican native theme switcher', () => {
+test('Aurora 0.5.2 manifest targets Pelican native theme switcher', () => {
     assert.equal(manifest.id, 'aurora-glass');
     assert.equal(manifest.name, 'Aurora Glass');
     assert.equal(manifest.category, 'theme');
     assert.equal(manifest.api_version, 1);
-    assert.equal(manifest.version, '0.5.1');
-    assert.equal(manifest.panel_version, '1.0.0-rc.3');
+    assert.equal(manifest.version, '0.5.2');
+    assert.equal(manifest.panel_version, '1.0.0-rc.4');
     assert.deepEqual(manifest.panels, ['app', 'admin', 'server']);
     assert.equal(Object.hasOwn(manifest, 'meta'), false);
 });
@@ -35,7 +35,7 @@ test('native Filament styles are not re-imported and Aurora CSS is active-only',
     assert.doesNotMatch(css, /@import\b[^;]*filament/i);
     assert.match(css, /@scope\s*\(html:has\(meta\[name="aurora-glass-active"\]\)\)\s*\{/);
     assert.ok(css.trimEnd().endsWith('}'));
-    assert.match(plugin, /<meta name="aurora-glass-active" content="0\.5\.1">/);
+    assert.match(plugin, /<meta name="aurora-glass-active" content="0\.5\.2">/);
     assert.ok(plugin.includes('html:has(meta[name="aurora-glass-active"])'));
     assert.match(plugin, /id="aurora-glass-variables"/);
     assert.doesNotMatch(css, /\burl\(https?:\/\//);

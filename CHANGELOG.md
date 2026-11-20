@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.2 — Pelican Panel v1.0.0-rc.4 compatibility
+
+- Declare exact compatibility with Pelican Panel v1.0.0-rc.4, released 19 November 2026; an rc.3-only manifest would otherwise be marked incompatible after upgrading the panel.
+- Verify the upstream rc.4 `HasTheme` contract, `ThemeService`, Vite entry discovery and plugin loading remain compatible with Aurora's implementation.
+- Retain the scoped glass styles, root CSS variables, dark/light palettes, all 25 saved settings, and the four presets unchanged.
+- Update version metadata, automated regression checks, release notes and deterministic archives. No migrations, direct core changes or new runtime dependencies.
+- Keep Aurora Glass 0.5.1 available for rc.3 and 0.4.2 for rc.2.
+
 ## 0.5.1 — Restore scoped glass variables
 
 - Fix a v0.5.0 CSS regression: `:root` did not match the root of Aurora's `@scope`, so glass surfaces lost their CSS variables.

@@ -65,3 +65,7 @@ There is no independent theme-mode toggle or client-side state in the plugin.
 ## Native theme selector (v0.5.0)
 
 On Pelican v1.0.0-rc.3, Aurora Glass appears in the user-menu/profile theme picker. Administrators can set a default theme or force a theme using Pelican's own settings. Aurora's 25 saved appearance settings are shared among users who select it; choosing another theme or No theme does not modify the stored palette. The CSS and dynamic variables are scoped to Aurora's active-theme marker. No extra configuration database, migration or Pelican core override is introduced.
+
+## Compatibility note for v0.5.2
+
+Pelican rc.4 retains Aurora Glass's established style settings and theme picker integration. The plugin still uses the 25 validated `AURORA_GLASS_*` `.env` values, with the same defaults, validation rules and four presets. Updating to Aurora Glass v0.5.2 changes version metadata only; settings are neither reset nor migrated.

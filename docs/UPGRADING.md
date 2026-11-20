@@ -35,3 +35,9 @@ The old release's Filament CSS import is intentionally removed because the nativ
 ## v0.5.1 glass styling regression fix
 
 On Pelican rc.3, Aurora Glass v0.5.0 can appear partially unstyled because scoped design variables did not match the scope root. v0.5.1 restores them without modifying your `AURORA_GLASS_*` settings or Pelican core. Upgrade with the native plugin manager, select Aurora and refresh the browser to use the rebuilt theme assets. Keep v0.4.2 for rc.2.
+
+## Aurora Glass v0.5.2 for Pelican rc.4
+
+Pelican Panel v1.0.0-rc.4 was released on 19 November 2026. Aurora Glass v0.5.1 used an exact rc.3 compatibility constraint, so on rc.4 the plugin may be reported as incompatible. v0.5.2 changes the constraint to rc.4 without changing the theme ID, CSS design or any of the 25 `AURORA_GLASS_*` settings.
+
+Back up your current settings before updating, upgrade the panel using its official procedure, then update Aurora through the native plugin manager with `Aurora-Glass-0.5.2.zip`. Verify Aurora is selected in the native theme picker and check the console, files, forms and glass cards in dark and light appearance. If you remain on rc.3, keep Aurora Glass v0.5.1; do not edit the version constraint manually. This release does not alter Pelican core files or perform migrations.
