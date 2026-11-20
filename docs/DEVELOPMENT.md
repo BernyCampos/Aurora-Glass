@@ -8,7 +8,7 @@ The class implements:
 
 - `Filament\Contracts\Plugin`.
 - `App\Contracts\Plugins\HasPluginSettings`.
-- `App\Contracts\Plugins\HasTheme` (Pelican v1.0.0-rc.3).
+- `App\Contracts\Plugins\HasTheme` (introduced in rc.3; contract unchanged in Pelican v1.0.0-rc.4).
 
 `register()` intentionally does not modify the shared panel. `getThemeViteEntry()` supplies `plugins/aurora-glass/resources/css/theme.css` to Pelican's native ThemeService, and `getThemeColors()` registers validated colors. `getThemeRenderHooks()` emits the active-theme marker and dynamic CSS variables only while Aurora is selected. `getThemeFont()` returns null so Filament keeps its native font.
 
@@ -87,3 +87,7 @@ The runtime ZIP includes the minimal plugin files, README, changelog and license
 - Native and third-party component markup can change across Pelican or Filament releases.
 - Modern CSS support is required; the blur fallback does not replace support for `color-mix()` or `:has()`.
 - Reduced-motion and reduced-transparency preferences are handled where supported by the browser.
+
+## Pelican rc.4 compatibility (Aurora Glass v0.5.2)
+
+Pelican v1.0.0-rc.4 retains the same HasTheme contract, ThemeService active-theme gating, and plugins/*/resources/css/**/*.css Vite entry discovery as rc.3. The current release targets rc.4 explicitly in plugin.json. The static glass stylesheet and CSS variable scope are unchanged to avoid the 0.5.0 styling regression; the release retains real headless Chromium assertions and PHP syntax checks. A connected rc.4 installation is still needed for full UI regression coverage.

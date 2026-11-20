@@ -19,7 +19,7 @@ function findChrome() {
 function renderWithChrome(chrome, dir, active, dark) {
     const file = join(dir, (active ? 'aurora' : 'native') + '-' + (dark ? 'dark' : 'light') + '.html');
     const html = '<!DOCTYPE html><html class="' + (dark ? 'dark' : '') + '"><head>'
-        + (active ? '<meta name="aurora-glass-active" content="0.5.1">' : '')
+        + (active ? '<meta name="aurora-glass-active" content="0.5.2">' : '')
         + '<style>html{'
         + '--ag-bg:#101216;--ag-surface:#20232c;--ag-accent:#a69afa;'
         + '--ag-secondary:#708cab;--ag-text:#eeeef5;--ag-muted:#aeb1c2;'

@@ -1,31 +1,32 @@
-# Aurora Glass v0.5.1 — Glass surfaces restored
+# Aurora Glass v0.5.2 — Pelican rc.4 compatibility
 
-Aurora Glass now supports Pelican Panel's built-in theme selector through the official `App\Contracts\Plugins\HasTheme` interface.
+Aurora Glass v0.5.2 is the compatibility update for **Pelican Panel v1.0.0-rc.4**, released on 19 November 2026.
 
-## Bug fixed in v0.5.1
+## What changed
 
-The v0.5.0 CSS isolation used root selectors that failed to match the scoping root inside `@scope`. This prevented glass design variables from reaching cards and other components. v0.5.1 uses `:scope` for root-level variables and light/dark overrides, restoring translucent cards, borders, corners and palette colors while keeping the native Pelican theme selector.
-
-## Features retained from v0.5.0
-
-- Aurora appears in the theme picker in the user menu and profile. Administrators can choose it as the default or forced theme.
-- Aurora CSS, Filament colors and dynamically configured variables are loaded only while Aurora is selected.
-- Replaced the legacy `viteTheme()` integration with the new `getThemeViteEntry()`, `getThemeColors()`, `getThemeFont()` and `getThemeRenderHooks()` methods.
-- Removed the duplicate Filament stylesheet import and scoped Aurora's style rules to its active theme.
-- Preserved all 25 `.env`-backed settings, independent light/dark palettes, and Violet/Ocean/Graphite/Rose presets.
-- Added automated tests and deterministic release archives; no migrations or Pelican core modifications.
+- Update `plugin.json` to require Pelican **v1.0.0-rc.4**. The previous strict rc.3 constraint would mark the plugin incompatible on rc.4.
+- Confirm that rc.4 preserves the official `App\Contracts\Plugins\HasTheme` methods, conditional Vite CSS, color registration and render hooks.
+- Keep the root-variable `:scope` fix from v0.5.1, native Filament CSS and the transparent Aurora Glass layout.
+- Preserve all 25 existing `.env` appearance settings and four presets; no migrations or Pelican core changes.
+- Re-run CSS scope regression tests in Chromium, PHP 8.4/8.5 syntax checks and package/checksum validation.
 
 ## Compatibility
 
-**Requires Pelican Panel 1.0.0-rc.3** (plugin API 1). Do not install this version on rc.2; Aurora Glass v0.4.2 remains available for older panels.
+- **Aurora Glass v0.5.2:** Pelican Panel **v1.0.0-rc.4** (plugin API 1)
+- **Aurora Glass v0.5.1:** Pelican Panel **v1.0.0-rc.3**
+- **Aurora Glass v0.4.2:** Older rc.2 installations
+
+The panel version in the manifest is intentionally exact; we do not claim future untested releases.
 
 ## Download files
 
-- `Aurora-Glass-0.5.1.zip` — installable Pelican plugin (use this for the panel or Marketplace).
-- `Aurora-Glass-0.5.1-source.zip` — developer source with documentation, tests, and workflows.
-- `SHA256SUMS.txt` — SHA-256 checksums for both ZIP files.
-- `update.json` — rc.3-specific update feed entry with package checksum.
+- `Aurora-Glass-0.5.2.zip` — installable Pelican plugin.
+- `Aurora-Glass-0.5.2-source.zip` — source, tests and docs.
+- `SHA256SUMS.txt` — archive SHA-256 checksums.
+- `update.json` — rc.4-specific update feed entry.
 
-## Verification
+## Validation and remaining checks
 
-GitHub Actions validates PHP syntax on 8.4 and 8.5, the HasTheme contract, style isolation, manifest compatibility, archive integrity and checksums. Switching between multiple themes, default/forced selection, and the three panel layouts still require a live rc.3 staging check before production rollout.
+Automated checks validate the theme interface structure, glass styling, light/dark behavior, isolation when another theme is active, archive integrity and PHP syntax. A full installation and live end-to-end walkthrough on an rc.4 panel (admin, app, server console/files, plugin settings, theme switching, mobile and upgrades) is still required to verify runtime presentation.
+
+GitHub Releases do not automatically update the Pelican Hub Marketplace listing or Hub's hosted update feed.
